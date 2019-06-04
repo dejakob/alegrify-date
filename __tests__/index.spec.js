@@ -203,6 +203,32 @@ describe('Day manipulation', () => {
         const date = new AlegrifyDate('2019-05-31T23:59:59');
         expect(date.formatDay('Do')).toBe('31st');
     });
+
+    it('should increment day value', () => {
+        const date = new AlegrifyDate('2019-05-20T02:00:00');
+
+        date.day++;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-21T02:00:00');
+
+        date.day += 7;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-28T02:00:00');
+
+        date.day += 7;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-06-04T02:00:00');
+    });
+
+    it('should decrement day value', () => {
+        const date = new AlegrifyDate('2019-05-11T02:00:00');
+
+        date.day--;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-10T02:00:00');
+
+        date.day -= 7;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-03T02:00:00');
+
+        date.day -= 7;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-04-26T02:00:00');
+    });
 });
 
 describe('Month manipulation', () => {
@@ -269,6 +295,32 @@ describe('Month manipulation', () => {
             expect(date.day).toBe(15);
         });
     }));
+
+    it('should increment month value', () => {
+        const date = new AlegrifyDate('2019-05');
+
+        date.month++;
+        expect(date.format('YYYY-MM')).toBe('2019-06');
+
+        date.month += 6;
+        expect(date.format('YYYY-MM')).toBe('2019-12');
+
+        date.month += 3;
+        expect(date.format('YYYY-MM')).toBe('2020-03');
+    });
+
+    it('should decrement month value', () => {
+        const date = new AlegrifyDate('2019-05');
+
+        date.month--;
+        expect(date.format('YYYY-MM')).toBe('2019-04');
+
+        date.month -= 3;
+        expect(date.format('YYYY-MM')).toBe('2019-01');
+
+        date.month -= 3;
+        expect(date.format('YYYY-MM')).toBe('2018-10');
+    });
 });
 
 describe('Year manipulation', () => {
@@ -292,6 +344,29 @@ describe('Year manipulation', () => {
         expect(date.formatYear()).toBe(2007);
         date.year = 2020;
         expect(date.formatYear('YYYY')).toBe(2020);
+    });
+
+    it('should increment year value', () => {
+        const date = new AlegrifyDate('2019-05-31');
+        
+        date.year++;
+        expect(date.year).toBe(2020);
+        
+        date.year += 10;
+        expect(date.year).toBe(2030);
+    });
+
+    it('should decrement year value', () => {
+        const date = new AlegrifyDate('2019-05-31');
+        
+        date.year--;
+        expect(date.year).toBe(2018);
+        
+        date.year -= 20;
+        expect(date.year).toBe(1998);
+        
+        date.year -= 2000;
+        expect(date.year).toBe(-2);
     });
 });
 
