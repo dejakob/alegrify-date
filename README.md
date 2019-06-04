@@ -16,10 +16,30 @@ or
 yarn i alegrify-date
 ```
 
+## How to use
+
 ```js
 const AlegrifyDate = require('alegrify-date');
 
 const date = new AlegrifyDate();
+
+// Set year to 2020
+date.year = 2020;
+
+// Set month to January
+date.month = 'Jarnuary';
+
+// Add one month
+date.month++;
+
+// Subtract 3 days
+date.day -= 3;
+
+// Add 5 minutes
+date.minute = 5;
+
+// Format the date
+console.log(date.format('DD MMMM, HHhmm'));
 ```
 
 ## API
