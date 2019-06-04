@@ -34,6 +34,32 @@ describe('Second manipulation', () => {
         const date = new AlegrifyDate('2019-05-31T23:59:07');
         expect(date.formatSecond('ss')).toBe('07');
     });
+
+    it('should increment second value', () => {
+        const date = new AlegrifyDate('2019-05-31T23:59:07');
+
+        date.second++;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-31T23:59:08');
+
+        date.second += 50;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-31T23:59:58');
+
+        date.second += 10;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-06-01T00:00:08');
+    });
+
+    it('should decrement second value', () => {
+        const date = new AlegrifyDate('2019-05-01T00:00:36');
+
+        date.second--;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-01T00:00:35');
+
+        date.second -= 30;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-01T00:00:05');
+
+        date.second -= 10;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-04-30T23:59:55');
+    });
 });
 
 describe('Minute manipulation', () => {
@@ -52,6 +78,32 @@ describe('Minute manipulation', () => {
         const date = new AlegrifyDate('2019-05-31T23:07:59');
         expect(date.formatMinute('mm')).toBe('07');
     });
+
+    it('should increment minute value', () => {
+        const date = new AlegrifyDate('2019-05-31T23:00:00');
+
+        date.minute++;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-31T23:01:00');
+
+        date.minute += 50;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-31T23:51:00');
+
+        date.minute += 10;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-06-01T00:01:00');
+    });
+
+    it('should decrement minute value', () => {
+        const date = new AlegrifyDate('2019-05-01T00:36:00');
+
+        date.minute--;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-01T00:35:00');
+
+        date.minute -= 30;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-01T00:05:00');
+
+        date.minute -= 10;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-04-30T23:55:00');
+    });
 });
 
 describe('Hour manipulation', () => {
@@ -69,6 +121,32 @@ describe('Hour manipulation', () => {
     it('should format with two digit', () => {
         const date = new AlegrifyDate('2019-05-31T07:59:59');
         expect(date.formatHour('HH')).toBe('07');
+    });
+
+    it('should increment hour value', () => {
+        const date = new AlegrifyDate('2019-05-31T02:00:00');
+
+        date.hour++;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-31T03:00:00');
+
+        date.hour += 20;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-31T23:00:00');
+
+        date.hour += 10;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-06-01T09:00:00');
+    });
+
+    it('should decrement hour value', () => {
+        const date = new AlegrifyDate('2019-05-01T23:00:00');
+
+        date.hour--;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-01T22:00:00');
+
+        date.hour -= 20;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-01T02:00:00');
+
+        date.hour -= 10;
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-04-30T16:00:00');
     });
 });
 
