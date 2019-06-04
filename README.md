@@ -3,7 +3,7 @@
 Pure JS Date library
 
 [![Build Status](https://travis-ci.org/dejakob/alegrify-date.svg?branch=master)](https://travis-ci.org/dejakob/alegrify-date)
-[![NPM]https://img.shields.io/npm/v/alegrify-date/latest.svg?label=npm](https://npmjs.com/package/alegrify-date)
+[![NPM](https://img.shields.io/npm/v/alegrify-date/latest.svg?label=npm)](https://npmjs.com/package/alegrify-date)
 
 ## Install
 
