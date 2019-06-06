@@ -8,6 +8,7 @@
   },
   "keywords": [],
   "author": "dejakob",
+  "repository": "git@github.com:dejakob/alegrify-date.git",
   "license": "MIT",
   "devDependencies": {
     "jest": "^24.8.0"
