@@ -43,7 +43,34 @@ class DateManager extends Date {
      * @returns {Number}
      */
     set hour(value) {
-        return this.setHours(value);
+        if (typeof value === 'number' || !isNaN(value * 1)) {
+            this.setHours(value * 1);
+            return;
+        }
+
+        if (typeof value === 'string') {
+            const lowerCaseValue = value.toLowerCase();
+            const hourValue = lowerCaseValue.replace(/(am)|(pm)/gi, '').trim() * 1;
+
+            if (!isNaN(hourValue)) {
+                if (lowerCaseValue.indexOf('am') > -1) {
+                    if (hourValue === 12) {
+                        this.setHours(0);
+                    }
+                    else if (hourValue >= 1 && hourValue <= 11) {
+                        this.setHours(hourValue);
+                    }
+                }
+                else if (lowerCaseValue.indexOf('pm') > -1) {
+                    if (hourValue === 12) {
+                        this.setHours(12);
+                    }
+                    else if (hourValue >= 1 && hourValue <= 11) {
+                        this.setHours(hourValue + 12);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -191,6 +218,44 @@ class DateManager extends Date {
                 
                 return '' + hours;
 
+            case DateManager.HOUR_FORMATS.HOURS_NUMERIC_TWO_DIGITS_12H:
+                if (hours === 0) {
+                    hours = 12;
+                }
+                else if (hours > 12) {
+                    hours -= 12;
+                }
+
+                if (hours < 10) {
+                    hours = '0' + hours;
+                }
+                
+                return '' + hours;
+
+            case DateManager.HOUR_FORMATS.HOURS_NUMERIC_ONE_DIGIT_12H:
+                if (hours === 0) {
+                    hours = 12;
+                }
+                else if (hours > 12) {
+                    hours -= 12;
+                }
+
+                return hours;
+
+            case DateManager.HOUR_FORMATS.HOURS_AM_PM_UPPERCASE:
+                if (hours >= 0 && hours <= 12) {
+                    return 'AM';
+                }
+
+                return 'PM';
+
+            case DateManager.HOUR_FORMATS.HOURS_AM_PM_LOWERCASE:
+                if (hours >= 0 && hours <= 12) {
+                    return 'am';
+                }
+
+                return 'pm';
+
             default:
                 return hours;
         }
@@ -312,7 +377,7 @@ class DateManager extends Date {
     }
 
     format(format) {
-        let result = format;
+        let result = format.replace(/\[h\]/gi, '$');
         
         const secondFormats = Object.keys(DateManager.SECOND_FORMATS).map(k => DateManager.SECOND_FORMATS[k]);
         const minuteFormats = Object.keys(DateManager.MINUTE_FORMATS).map(k => DateManager.MINUTE_FORMATS[k]);
@@ -360,7 +425,7 @@ class DateManager extends Date {
             }
 
             return match;
-        });
+        }).replace(/\$/gi, 'h');
     }
 }
 DateManager.EN_SUFFIXES = {
@@ -391,8 +456,10 @@ DateManager.MINUTE_FORMATS = {
 DateManager.HOUR_FORMATS = {
     HOURS_NUMERIC_ONE_DIGIT: 'H',
     HOURS_NUMERIC_TWO_DIGITS: 'HH',
-    // HOURS_NUMERIC_ONE_DIGIT_12H: 'h', // To be implemented
-    // HOURS_NUMERIC_TWO_DIGITS_12H: 'hh', // To be implemented
+    HOURS_NUMERIC_ONE_DIGIT_12H: 'h',
+    HOURS_NUMERIC_TWO_DIGITS_12H: 'hh',
+    HOURS_AM_PM_UPPERCASE: 'A',
+    HOURS_AM_PM_LOWERCASE: 'a',
 };
 DateManager.DAY_FORMATS = {
 

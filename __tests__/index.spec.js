@@ -123,6 +123,24 @@ describe('Hour manipulation', () => {
         expect(date.formatHour('HH')).toBe('07');
     });
 
+    it('should format with one digit - 12h', () => {
+        const date = new AlegrifyDate('2019-05-31T08:59:59');
+        expect(date.formatHour('h')).toBe(8);
+        expect(date.format('ha')).toBe('8am');
+    });
+
+    it('should format with two digit - 12h', () => {
+        const date = new AlegrifyDate('2019-05-31T16:59:59');
+        expect(date.formatHour('hh')).toBe('04');
+        expect(date.format('hha')).toBe('04pm');
+    });
+
+    it('should format 10 pm', () => {
+        const date = new AlegrifyDate('2019-05-31T22:59:59');
+        expect(date.format('h')).toBe('10');
+        expect(date.format('ha')).toBe('10pm');
+    });
+
     it('should increment hour value', () => {
         const date = new AlegrifyDate('2019-05-31T02:00:00');
 
@@ -147,6 +165,38 @@ describe('Hour manipulation', () => {
 
         date.hour -= 10;
         expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-04-30T16:00:00');
+    });
+
+    it('should set pm time', () => {
+        const date = new AlegrifyDate('2019-05-01T02:00:00');
+
+        date.hour = '4pm';
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-01T16:00:00');
+
+        date.hour = '11pm';
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-01T23:00:00');
+
+        date.hour = '12pm';
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-01T12:00:00');
+
+        date.hour = '7pm';
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-01T19:00:00');
+    });
+
+    it('should set am time', () => {
+        const date = new AlegrifyDate('2019-05-01T17:00:00');
+
+        date.hour = '1am';
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-01T01:00:00');
+
+        date.hour = '12am';
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-01T00:00:00');
+
+        date.hour = '7am';
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-01T07:00:00');
+
+        date.hour = '11am';
+        expect(date.format('YYYY-MM-DDTHH:mm:ss')).toBe('2019-05-01T11:00:00');
     });
 });
 
@@ -388,6 +438,11 @@ describe('format method', () => {
 
     it('should format HHhmm', () => {
         const date = new AlegrifyDate('2016-12-22T23:08:59');
-        expect(date.format('HHhmm')).toBe('23h08');
+        expect(date.format('HHhmm')).toBe('231108');
+    });
+
+    it('should format HH[h]mm', () => {
+        const date = new AlegrifyDate('2016-12-22T23:08:59');
+        expect(date.format('HH[h]mm')).toBe('23h08');
     });
 });

@@ -99,7 +99,7 @@ Display the date in a certain format
 
 ```js
 const date = AlegrifyDate('2019-06-03T20:45:00');
-return date.format('D MMMM YYYY HHh');
+return date.format('D MMMM YYYY HH[h]');
 // Will return 3 June 2019 20h
 ```
 
