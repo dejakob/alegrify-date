@@ -161,6 +161,33 @@ class DateManager extends Date {
     }
 
     /**
+     * Get whether or not the date & time are in the future
+     * @readonly
+     * @returns {Boolean}
+     */
+    get isInTheFuture() {
+        return this.getTime() > new Date().getTime();
+    }
+
+    /**
+     * Get whether or not the date & time are in the past
+     * @readonly
+     * @returns {Boolean}
+     */
+    get isInThePast() {
+        return this.getTime() < new Date().getTime();
+    }
+    
+    /**
+     * Is the date today?
+     * @readonly
+     * @returns {Boolean}
+     */
+    get isToday() {
+        return this.format('YYYY-MM-DD') === new Date().format('YYYY-MM-DD');
+    }
+
+    /**
      * Get second of the date into certain format
      * @param {String} [format=DateManager.SECOND_FORMATS.SECONDS_NUMERIC_ONE_DIGIT]
      * @returns {Number|String}
